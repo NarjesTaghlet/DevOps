@@ -63,10 +63,11 @@ pipeline {
                 }
             }
         }
+        
+
 
         
-    // some block
-}
+    // some bloc
         
         stage('Deploy') {
             steps {
@@ -87,6 +88,10 @@ pipeline {
             echo 'Le pipeline a échoué.'
         }
     }
+
 }
+
+}
+
 
 
