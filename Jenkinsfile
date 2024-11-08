@@ -57,7 +57,7 @@ pipeline {
                     //     sh 'docker push ${DOCKER_IMAGE}'
                     // }
 
-                    withDockerRegistry(credentialsId: 'dockerhub-credentials', toolName: 'docker', url: 'https://hub.docker.com') {
+                    withDockerRegistry(credentialsId: 'dockerhub-credentials', toolName: 'docker') {
                         sh 'docker push ${DOCKER_IMAGE}'
                 }
             }
