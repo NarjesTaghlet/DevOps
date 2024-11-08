@@ -5,17 +5,18 @@ pipeline {
     tools {
         jdk 'jdk17'
         maven 'maven3'
+        docker 'docker'
     }
 
     environment {
-        DOCKER_IMAGE = 'JESS/spring-petclinic:latest'  // Nom de l'image Docker
+        DOCKER_IMAGE = 'JESS/petclinic:latest'  // Nom de l'image Docker
         DOCKER_REGISTRY = 'https://hub.docker.com'  // L'URL de DockerHub
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', changelog: false, poll: false,url: 'https://github.com/NarjesTaghlet/Petclinic.git'
+                git branch: 'main', changelog: false, poll: false,url: 'https://github.com/NarjesTaghlet/DevOps.git'
             }
         }
 
@@ -51,13 +52,20 @@ pipeline {
             steps {
                 script {
                     // Authentifier avec DockerHub et pousser l'image construite
-                    docker.withRegistry('https://hub.docker.com', 'dockerhub-credentials') {
-                        // Pousser l'image Docker sur DockerHub
+                    // docker.withRegistry('https://hub.docker.com', 'dockerhub-credentials') {
+                    //     // Pousser l'image Docker sur DockerHub
+                    //     sh 'docker push ${DOCKER_IMAGE}'
+                    // }
+
+                    withDockerRegistry(credentialsId: 'dockerhub-credentials', toolName: 'docker', url: 'https://hub.docker.com') {
                         sh 'docker push ${DOCKER_IMAGE}'
-                    }
                 }
             }
         }
+
+        
+    // some block
+}
         
         stage('Deploy') {
             steps {
