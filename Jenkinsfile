@@ -1,11 +1,9 @@
-
 pipeline {
     agent any
 
     tools {
         jdk 'jdk17'
         maven 'maven3'
-
     }
 
     environment {
@@ -16,10 +14,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', changelog: false, poll: false,url: 'https://github.com/NarjesTaghlet/DevOps.git'
+                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/NarjesTaghlet/DevOps.git'
             }
         }
-
 
         stage('Build') {
             steps {
@@ -29,7 +26,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Test') {
             steps {
                 script {
@@ -38,37 +35,27 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Build Docker Image') {
             steps {
                 script {
                     // Construire l'image Docker
                     sh 'docker build --no-cache -t ${DOCKER_IMAGE} .'
-                    // Construire l'image à partir du Dockerfile
                 }
             }
         }
-        
+
         stage('Push Docker Image') {
             steps {
                 script {
                     // Authentifier avec DockerHub et pousser l'image construite
-                    // docker.withRegistry('https://hub.docker.com', 'dockerhub-credentials') {
-                    //     // Pousser l'image Docker sur DockerHub
-                    //     sh 'docker push ${DOCKER_IMAGE}'
-                    // }
-
                     withDockerRegistry(credentialsId: 'dockerhub-credentials', toolName: 'docker') {
                         sh 'docker push ${DOCKER_IMAGE}'
+                    }
                 }
             }
         }
-        
 
-
-        
-    // some bloc
-        
         stage('Deploy') {
             steps {
                 // Étape de déploiement ici
@@ -88,10 +75,4 @@ pipeline {
             echo 'Le pipeline a échoué.'
         }
     }
-
 }
-
-}
-
-
-
