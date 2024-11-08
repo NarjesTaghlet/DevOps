@@ -15,9 +15,10 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/NarjesTaghlet/Petclinic.git'
+                git branch: 'main', changelog: false, poll: false,url: 'https://github.com/NarjesTaghlet/Petclinic.git'
             }
         }
+
 
         stage('Build') {
             steps {
