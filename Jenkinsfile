@@ -7,7 +7,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE = 'JESS/petclinic:latest'  // Nom de l'image Docker
+        DOCKER_IMAGE = 'jesstg/petclinic:latest'  // Nom de l'image Docker
         DOCKER_REGISTRY = 'https://hub.docker.com'  // L'URL de DockerHub
     }
 
