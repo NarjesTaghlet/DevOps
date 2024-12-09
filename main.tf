@@ -1,19 +1,16 @@
 provider "azurerm" {
   features {}
-  subscription_id = var.subscription_id
+  
 }
 
-variable "subscription_id" {
-  description = "Azure Subscription ID"
-  type        = string
-}
+
 
 resource "azurerm_resource_group" "example" {
   name     = "example-resources"
   location = "North Europe"
 }
 
-resource "azurerm_app_service_plan" "example" {
+resource "azurerm_service_plan" "example" {
   name                = "example-app-service-plan"
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
