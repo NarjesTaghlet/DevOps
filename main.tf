@@ -3,6 +3,11 @@ provider "azurerm" {
   subscription_id = var.subscription_id
 }
 
+variable "subscription_id" {
+  description = "Azure Subscription ID"
+  type        = string
+}
+
 resource "azurerm_resource_group" "example" {
   name     = "example-resources"
   location = "North Europe"
