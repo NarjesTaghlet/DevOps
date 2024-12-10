@@ -31,7 +31,7 @@ resource "azurerm_app_service" "example" {
   }
 
   app_settings = {
-    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false" # Required for containerized apps
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "true" # Required for containerized apps
     "DOCKER_REGISTRY_SERVER_URL"          = "https://index.docker.io/v1/" # Optional for public Docker images
     "DOCKER_REGISTRY_SERVER_USER"         = "jesstg" # DockerHub username
     "DOCKER_REGISTRY_SERVER_PASSWORD"     = "Jess2001@@" # DockerHub password
